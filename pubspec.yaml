@@ -25,6 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   qrcode_reader: ^0.4.4 # https://pub.dev/packages/qrcode_reader#-readme-tab-
                         # https://www.qrcode.es/es/generador-qr-code/
+  sqflite: ^1.1.6+2  #https://pub.dev/packages/sqflite#-readme-tab-
+  path_provider: ^1.2.0 #https://pub.dev/packages/path_provider#-installing-tab-
 
 dev_dependencies:
   flutter_test:
