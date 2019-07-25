@@ -36,13 +36,13 @@ class _HomePageState extends State<HomePage> {
   }
   _scanQR() async{
     String futureString ='';
-    try{
-      print("asdf");
-      futureString= await new QRCodeReader().scan();
-    }catch(e){
-      futureString=e.toString();
-    } 
-    print('futureString: $futureString');
+    // try{
+    //   print("asdf");
+    //   futureString= await new QRCodeReader().scan();
+    // }catch(e){
+    //   futureString=e.toString();
+    // } 
+    // print('futureString: $futureString');
 
   }
   Widget _callPage(int paginaActual) {
