@@ -3,6 +3,7 @@ import 'package:qrreaderapp/src/pages/direcciones_page.dart';
 import 'package:qrreaderapp/src/pages/mapas_page.dart';
 
 import 'package:qrcode_reader/qrcode_reader.dart';
+import 'package:qrreaderapp/src/providers/db_provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -35,14 +36,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
   _scanQR() async{
-    String futureString ='';
+    String futureString ='http://google.com';
     // try{
     //   print("asdf");
     //   futureString= await new QRCodeReader().scan();
     // }catch(e){
     //   futureString=e.toString();
     // } 
-    // print('futureString: $futureString');
+    if(futureString!=null){
+      ScanModel scan=ScanModel(valor: futureString);
+      int res=await DBProvider.db.nuevoScan(scan);
+      print(res);
+    }
 
   }
   Widget _callPage(int paginaActual) {
