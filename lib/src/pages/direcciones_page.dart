@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:qrreaderapp/src/bloc/scan_bloc.dart';
 import 'package:qrreaderapp/src/providers/db_provider.dart';
 
 class DireccionesPage extends StatelessWidget {
+  final scansBloc = new ScansBloc();
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ScanModel>>(
-      future: DBProvider.db.getTodosScans(),
+    scansBloc.obtenerScans();
+    return StreamBuilder<List<ScanModel>>(
+      stream: scansBloc.scansStream,
       builder: (BuildContext context, AsyncSnapshot<List<ScanModel>> snapshot) {
         if (!snapshot.hasData) {
           return Center(
@@ -21,15 +24,22 @@ class DireccionesPage extends StatelessWidget {
           itemCount: snapshot.data.length,
           itemBuilder: (BuildContext context, i) {
             return Dismissible(
-              background: Container(color: Colors.red,),
+              background: Container(
+                color: Colors.red,
+              ),
               key: UniqueKey(),
-              onDismissed: (direction){DBProvider.db.deleteScan(snapshot.data[i].id);},
+              onDismissed: (direction) {
+                scansBloc.borrarScan(snapshot.data[i].id);
+              },
               child: ListTile(
-                  leading: Icon(Icons.cloud_circle,color: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.cloud_circle,
+                      color: Theme.of(context).primaryColor),
                   title: Text(snapshot.data[i].valor),
                   subtitle: Text("ID: ${snapshot.data[i].id}"),
-                  trailing: Icon(Icons.arrow_right,color: Colors.grey,)
-              ),
+                  trailing: Icon(
+                    Icons.arrow_right,
+                    color: Colors.grey,
+                  )),
             );
           },
         );

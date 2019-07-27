@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:qrreaderapp/src/bloc/scan_bloc.dart';
+import 'package:qrreaderapp/src/models/scan_model.dart';
 import 'package:qrreaderapp/src/pages/direcciones_page.dart';
 import 'package:qrreaderapp/src/pages/mapas_page.dart';
 
 import 'package:qrcode_reader/qrcode_reader.dart';
-import 'package:qrreaderapp/src/providers/db_provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final scansBloc = new ScansBloc();
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,17 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.delete_forever),
-            onPressed: (){},
+            onPressed: () {
+              switch (currentIndex) {
+                case 0:
+                  //return MapasPage();
+                  break;
+                case 1:
+                  scansBloc.borrarScanTodos();
+                  break;
+              }
+            },
           )
-          
         ],
       ),
       body: _callPage(currentIndex),
@@ -35,21 +45,21 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  _scanQR() async{
-    String futureString ='http://google.com';
+
+  _scanQR() async {
+    String futureString = 'http://google.com';
     // try{
     //   print("asdf");
     //   futureString= await new QRCodeReader().scan();
     // }catch(e){
     //   futureString=e.toString();
-    // } 
-    if(futureString!=null){
-      ScanModel scan=ScanModel(valor: futureString);
-      int res=await DBProvider.db.nuevoScan(scan);
-      print(res);
+    // }
+    if (futureString != null) {
+      ScanModel scan = ScanModel(valor: futureString);
+      scansBloc.agregarScans(scan);
     }
-
   }
+
   Widget _callPage(int paginaActual) {
     switch (paginaActual) {
       case 0:

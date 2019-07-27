@@ -28,5 +28,6 @@ class ScansBloc{
   }
   borrarScanTodos()async{
     await DBProvider.db.deleteAll();
+    obtenerScans();
   }
 }
