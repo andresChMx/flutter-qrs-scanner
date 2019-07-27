@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qrreaderapp/src/bloc/scan_bloc.dart';
 import 'package:qrreaderapp/src/providers/db_provider.dart';
+import 'package:qrreaderapp/src/utils/utils.dart' as utils;
 
 class DireccionesPage extends StatelessWidget {
   final scansBloc = new ScansBloc();
@@ -39,7 +40,9 @@ class DireccionesPage extends StatelessWidget {
                   trailing: Icon(
                     Icons.arrow_right,
                     color: Colors.grey,
-                  )),
+                  ),
+                  onTap: (){utils.abrirScan(snapshot.data[i]);},
+                ),
             );
           },
         );
