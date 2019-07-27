@@ -43,13 +43,13 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.filter_center_focus),
-        onPressed: _scanQR,
+        onPressed: (){_scanQR(context);},
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }
 
-  _scanQR() async {
+  _scanQR(BuildContext context) async {
     String futureString = 'http://google.com';
     // try{
     //   print("asdf");
@@ -61,12 +61,14 @@ class _HomePageState extends State<HomePage> {
       ScanModel scan = ScanModel(valor: futureString);
       scansBloc.agregarScans(scan);
 
+      ScanModel scan2 = ScanModel(valor: 'x:123123,y:12312312');
+      scansBloc.agregarScans(scan2);
       if(Platform.isIOS){
         Future.delayed(Duration(milliseconds:750),(){
-          utils.abrirScan(scan);
+          utils.abrirScan(context,scan);
         });
       }else{
-        utils.abrirScan(scan);
+        utils.abrirScan(context,scan);
       }
     }
   }

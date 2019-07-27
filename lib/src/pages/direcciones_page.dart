@@ -41,7 +41,7 @@ class DireccionesPage extends StatelessWidget {
                     Icons.arrow_right,
                     color: Colors.grey,
                   ),
-                  onTap: (){utils.abrirScan(snapshot.data[i]);},
+                  onTap: (){utils.abrirScan(context,snapshot.data[i]);},
                 ),
             );
           },
