@@ -25,17 +25,32 @@ class MapaPage extends StatelessWidget {
         zoom: 10
       ),
       layers: [
-        _crearMapa()
+        _crearMapa(),
+        _crearMarcadores(scan)
       ],
     );
   }
-  _crearMapa(){
+  TileLayerOptions _crearMapa(){
     return TileLayerOptions(
       urlTemplate: 'https://api.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',
       additionalOptions: {
         'accessToken':'pk.eyJ1IjoiYW5kY2hvcXVlbSIsImEiOiJjanlxbDVxbTAwMHp0M2RxcDQ4MHp4MDE0In0.2-iFq1rdqXvGZumHmZdMYQ',
         'id':'mapbox.satellite'// streets, dark,light, outdoors, satellite
       }
+    );
+  }
+  _crearMarcadores(ScanModel scan){
+    return MarkerLayerOptions(
+      markers:<Marker>[
+        Marker(
+          width: 100.0,
+          height:100.0,
+          point:scan.getLatLng(),
+          builder: (context){
+            return Container(child: Icon(Icons.location_on,size: 70.0,color: Theme.of(context).primaryColor,),);
+          }
+        )
+      ]
     );
   }
 }
