@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qrreaderapp/src/providers/db_provider.dart';
 import 'package:flutter_map/flutter_map.dart';
 class MapaPage extends StatelessWidget {
+  final MapController map=MapController();
   @override
   Widget build(BuildContext context) {
     final ScanModel scan=ModalRoute.of(context).settings.arguments;
@@ -11,7 +12,7 @@ class MapaPage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon:Icon(Icons.my_location),
-            onPressed: (){},
+            onPressed: (){map.move(scan.getLatLng(), 15);},
           )
         ],
       ),
@@ -20,6 +21,7 @@ class MapaPage extends StatelessWidget {
   }
   Widget _crearFlutterMap(ScanModel scan){
     return FlutterMap(
+      mapController: map,
       options: MapOptions(
         center:scan.getLatLng(),
         zoom: 10
