@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
       ScanModel scan = ScanModel(valor: futureString);
       scansBloc.agregarScans(scan);
 
-      ScanModel scan2 = ScanModel(valor: 'x:123123,y:12312312');
+      ScanModel scan2 = ScanModel(valor: 'geo:37.23433,-115.80666');
       scansBloc.agregarScans(scan2);
       if(Platform.isIOS){
         Future.delayed(Duration(milliseconds:750),(){

@@ -34,7 +34,7 @@ class MapaPage extends StatelessWidget {
       urlTemplate: 'https://api.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',
       additionalOptions: {
         'accessToken':'pk.eyJ1IjoiYW5kY2hvcXVlbSIsImEiOiJjanlxbDVxbTAwMHp0M2RxcDQ4MHp4MDE0In0.2-iFq1rdqXvGZumHmZdMYQ',
-        'id':'mapbox.streets'
+        'id':'mapbox.satellite'// streets, dark,light, outdoors, satellite
       }
     );
   }
