@@ -50,19 +50,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   _scanQR(BuildContext context) async {
-    String futureString = 'http://google.com';
-    // try{
-    //   print("asdf");
-    //   futureString= await new QRCodeReader().scan();
-    // }catch(e){
-    //   futureString=e.toString();
-    // }
+    String futureString;
+    try{
+      futureString= await new QRCodeReader().scan();
+    }catch(e){
+      futureString=e.toString();
+    }
     if (futureString != null) {
       ScanModel scan = ScanModel(valor: futureString);
       scansBloc.agregarScans(scan);
-
-      ScanModel scan2 = ScanModel(valor: 'geo:37.23433,-115.80666');
-      scansBloc.agregarScans(scan2);
+      
       if(Platform.isIOS){
         Future.delayed(Duration(milliseconds:750),(){
           utils.abrirScan(context,scan);
