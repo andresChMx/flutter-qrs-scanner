@@ -9,7 +9,7 @@ class MapasPage extends StatelessWidget {
   Widget build(BuildContext context) {
     scansBloc.obtenerScans();
     return StreamBuilder<List<ScanModel>>(
-      stream: scansBloc.scansStreamHttp,
+      stream: scansBloc.scansStream,
       builder: (BuildContext context, AsyncSnapshot<List<ScanModel>> snapshot) {
         if (!snapshot.hasData) {
           return Center(

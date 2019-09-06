@@ -20,9 +20,9 @@ class DBProvider {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, 'ScansDB.db');
 
-    return await openDatabase(path, version: 1, onOpen: (db) {},
-        onCreate: (Database db, int version) async {
-      await db.execute('CREATE TABLE Scans('
+    return await openDatabase(path, version: 1, onOpen: (dbtmp) {},
+        onCreate: (Database dbtmp, int version) async {
+      await dbtmp.execute('CREATE TABLE Scans('
           'id INTEGER PRIMARY KEY,'
           'tipo TEXT,'
           'valor TEXT'
@@ -62,7 +62,8 @@ class DBProvider {
         : [];
     return list;
   }
-    Future<List<ScanModel>> getScansPorTipo(String tipo) async {
+
+  Future<List<ScanModel>> getScansPorTipo(String tipo) async {
     final db = await database;
     final res = await db.rawQuery("SELECT * FROM Scans WHERE tipo=$tipo");
     List<ScanModel> list = res.isNotEmpty
@@ -72,22 +73,26 @@ class DBProvider {
         : [];
     return list;
   }
+
   //Actualizar Registros
-  Future<int> updateScan(ScanModel nuevoScan)async{
-    final db=await database;
-    final res=await db.update('Scans', nuevoScan.toJson(),where: 'id=?',whereArgs: [nuevoScan.id]);
+  Future<int> updateScan(ScanModel nuevoScan) async {
+    final db = await database;
+    final res = await db.update('Scans', nuevoScan.toJson(),
+        where: 'id=?', whereArgs: [nuevoScan.id]);
     return res; //cantidad registros actualizados
   }
+
   //Eliminar Registros
-  deleteScan(int id)async{
-    final db=await database;
-    final res=await db.delete('Scans',where:'id=?',whereArgs: [id]);
-    return res;//cantidad regsitros eliminados
+  deleteScan(int id) async {
+    final db = await database;
+    final res = await db.delete('Scans', where: 'id=?', whereArgs: [id]);
+    return res; //cantidad regsitros eliminados
   }
-  deleteAll()async{
-    final db=await database;
+
+  deleteAll() async {
+    final db = await database;
     //final res=await db.delete('Scans');
-    final res=await db.rawDelete('DELETE FROM Scans');
+    final res = await db.rawDelete('DELETE FROM Scans');
     return res;
   }
 }
